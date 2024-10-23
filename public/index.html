@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar Municípios com IBGE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comparar Código do município com IBGE</h1>
+        </header>
+        <main>
+            <form id="uploadForm">
+                <input type="file" id="xmlFiles" accept=".xml" multiple>
+                <button type="submit">Comparar</button>
+            </form>
+
+            <button id="clearButtom">Limpar Resultados</button>
+            <div id="result"></div>
+        </main>
+
+        <footer>
+            <p>&copy; 23/10/2024</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    
+</body>
+</html>

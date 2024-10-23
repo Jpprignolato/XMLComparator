@@ -1,0 +1,12 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #c2c2c2; /*Cor de fundo */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px; /*Largura máxima do caontêiner.*/
+    margin: 120px auto; /*Centralizar o contêiner na tela */
+    background-color: #e7e7e7;
+}
