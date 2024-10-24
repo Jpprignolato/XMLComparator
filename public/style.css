@@ -1,12 +1,126 @@
-body {
-    font-family: 'Times New Roman', Times, serif;
-    background-color: #c2c2c2; /*Cor de fundo */
-    margin: 0;
+* {
+    margin:0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  /* Seleção de fonte e estilo.*/
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    max-width: 600px; /*Largura máxima do caontêiner.*/
-    margin: 120px auto; /*Centralizar o contêiner na tela */
-    background-color: #e7e7e7;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+
+label { 
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+select, input [type="file"], button {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #a5a5a5;
+    font-size: 15px;
+}
+
+select, input[type="file"] {
+    width: 100%;
+}
+
+button[type="submit"], #clearButton {
+    background-color: #e65326;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover, #clearButton:hover {
+    background-color: #b33c06;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+#clearButton {
+    background-color: #ff4d4f;
+}
+
+#clearButton:hover {
+    background-color: #d90000;
+}
+
+#result {
+    margin-top: 40px;
+    text-align: left;
+}
+
+p {
+    background-color: #e9ece9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #aaa;
+}
+
+/* Media query para responsividade */
+@media (max-width: 500px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+/* Estilo para resultados corretos */
+.result-correct {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #c3e6cb;
+}
+
+/* Estilo para resultados incorretos */
+.result-incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
 }

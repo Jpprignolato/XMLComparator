@@ -1,47 +1,54 @@
-// Escutar o envio do formulário
 document.getElementById('uploadForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Impede o envio padrão do formulário
     const files = document.getElementById('xmlFiles').files; // Obtém os arquivos selecionados
+    const xmlType = document.getElementById('xmlType').value; // Obtém o tipo de XML (nfe ou cte)
 
     for (let file of files) {
         const reader = new FileReader();
         reader.onload = function (event) {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(event.target.result, "text/xml");
-            const cMun = xmlDoc.getElementsByTagName('cMun')[0].textContent;
-            const xMun = xmlDoc.getElementsByTagName('xMun')[0].textContent;
-            const infCte = xmlDoc.getElementsByTagName('infCte')[0].getAttribute('Id'); // Extraindo a chave infCte
+            
+            let cMun, xMun, chaveAcesso;
+            
+            if (xmlType === 'nfe') {
+                const infNFe = xmlDoc.getElementsByTagName('infNFe')[0];
+                cMun = infNFe.getElementsByTagName('cMun')[0].textContent;
+                xMun = infNFe.getElementsByTagName('xMun')[0].textContent;
+                chaveAcesso = infNFe.getAttribute('Id');
+            } else if (xmlType === 'cte') {
+                const infCte = xmlDoc.getElementsByTagName('infCte')[0];
+                cMun = infCte.getElementsByTagName('cMun')[0].textContent;
+                xMun = infCte.getElementsByTagName('xMun')[0].textContent;
+                chaveAcesso = infCte.getAttribute('Id');
+            }
 
-            // Consultando a API do IBGE
             fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${cMun}`)
                 .then(response => response.json())
                 .then(data => {
                     const nomeIBGE = data.nome;
-                    const resultado = nomeIBGE.toLowerCase() === xMun.toLowerCase()
-                        ? `<p>${xMun} (Código: ${cMun}) está correto!</p>`
-                        : `<p>${xMun} (Código: ${cMun}) está incorreto! Nome correto: ${nomeIBGE}. Chave infCte: ${infCte}</p>`; // Usando infCte
-                    document.getElementById('result').innerHTML += resultado; // Adiciona o resultado ao HTML
+                    let resultadoHTML;
+                    if (nomeIBGE.toLowerCase() === xMun.toLowerCase()) {
+                        // Município correto - Adiciona a classe de sucesso
+                        resultadoHTML = `<p class="result-correct">${xMun} (Código: ${cMun}) está correto!</p>`;
+                    } else {
+                        // Município incorreto - Adiciona a classe de erro
+                        resultadoHTML = `<p class="result-incorrect">${xMun} (Código: ${cMun}) está incorreto! Nome correto: ${nomeIBGE}. Chave de Acesso: ${chaveAcesso}</p>`;
+                    }
+                    document.getElementById('result').innerHTML += resultadoHTML;
                 });
+                
         };
-        reader.readAsText(file); // Lê o arquivo como texto
-    }
-});
+        
+        reader.readAsText(file);
 
-function compararComIBGE(cMun, xMun) {
-    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${cMun}`)
-    .then(response => response.json())
-    .then(data => {
-        const nomeIBGE = data.nome;
-        const resultado = nomeIBGE.toLowerCase() === xMun.toLowerCase()
-            ? `<p>${xMun} (Código: ${cMun}) está correto!</p>`
-            : `<p>${xMun} (Código: ${cMun}) está incorreto! Nome correto: ${nomeIBGE}. Chave infNFe: ${infCte}</p>`;
-        document.getElementById('result').innerHTML += resultado;
-        })
-        .catch(error => console.error('Erro ao consultar API do IBGE:', error));
-}
+    }
+    
+});
 
 // Escutar o clique no botão de limpar
-document.getElementById('clearButtom').addEventListener('click', function () {
-    // Limpar o conteúdo da div de resultados
-    document.getElementById('result').innerHTML = '';
+document.getElementById('clearButton').addEventListener('click', function () {
+document.getElementById('result').innerHTML = ''; // Limpa a div de resultados
 });
+
+

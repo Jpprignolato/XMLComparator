@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +9,30 @@
 <body>
     <div class="container">
         <header>
-            <h1>Comparar Código do município com IBGE</h1>
+            <h1>Comparar Municípios com Dados do IBGE</h1>
         </header>
+        
         <main>
             <form id="uploadForm">
+                <label for="xmlType">Selecione o tipo de XML:</label>
+                <select id="xmlType">
+                    <option value="nfe">Nota Fiscal (infNFe)</option>
+                    <option value="cte">CTe (infCte)</option>
+                </select>
+                
                 <input type="file" id="xmlFiles" accept=".xml" multiple>
                 <button type="submit">Comparar</button>
             </form>
-
-            <button id="clearButtom">Limpar Resultados</button>
+            
+            <button id="clearButton">Limpar Resultados</button>
             <div id="result"></div>
         </main>
-
+        
         <footer>
-            <p>&copy; 23/10/2024</p>
+            <p>&copy; 2024 - 24/10</p>
         </footer>
     </div>
 
     <script src="app.js"></script>
-    
 </body>
 </html>
